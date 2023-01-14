@@ -26,5 +26,5 @@ Temporary Items
 .apdisk
 
 # Jupyter Notebook
-.ipynb_checkpoints
+*/.ipynb_checkpoints
 */.ipynb_checkpoints/*
