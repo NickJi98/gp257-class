@@ -6,6 +6,6 @@ For next steps take a look at https://docs.google.com/document/d/11OSGW70sHIHiHM
 
 ## Lab progress
 
-- [x] [Basic_Intro_to_Python_and_Jupyter_Notebooks]
+- [x] [Basic_Intro_to_Python_and_Jupyter_Notebooks] (http://zapad.stanford.edu/GP257/labs-2023/class-notebooks/-/blob/main/Basic_Intro_to_Python_and_Jupyter_Notebooks.ipynb)
 
-- [ ] [Data_Types_and_Basic_Machine_Errors_in_Python]
+- [ ] [Data_Types_and_Basic_Machine_Errors_in_Python] (http://zapad.stanford.edu/GP257/labs-2023/data-types-and-machine-errors/-/blob/main/Data_Types_and_Basic_Machine_Errors_in_Python.ipynb)
