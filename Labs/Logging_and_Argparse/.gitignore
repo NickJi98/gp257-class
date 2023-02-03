@@ -1,3 +1,4 @@
 labVec*.npz
 slurm*.out
 .ipynb_checkpoints
+*.log
