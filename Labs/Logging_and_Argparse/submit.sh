@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --ntasks=1
-#SBATCH --partition=cpu
+#SBATCH --partition=preempt
 #SBATCH --time=1:00:00
 #SBATCH --mem=16GB
 #SBATCH --cpus-per-task=1

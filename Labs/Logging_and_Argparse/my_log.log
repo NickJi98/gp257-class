@@ -1,0 +1,9 @@
+2023-02-03 18:56:19,033 - my_logger - DEBUG - Start parsing input expression: Function 'parse'.
+2023-02-03 18:56:19,033 - my_logger - DEBUG - Check input expression: Function 'lexical_check'.
+2023-02-03 18:56:19,033 - my_logger - INFO - Simplified expression: 3/(1+2)*4
+2023-02-03 18:56:19,033 - my_logger - DEBUG - Analyze input expression: Function 'lexical_analysis'.
+2023-02-03 18:56:19,033 - my_logger - INFO - Read in file3: labVec2.npz
+2023-02-03 18:56:21,079 - my_logger - INFO - Read in file1: labVec0.npz
+2023-02-03 18:56:23,080 - my_logger - INFO - Read in file2: labVec1.npz
+2023-02-03 18:56:27,128 - my_logger - INFO - Read in file4: labVec3.npz
+2023-02-03 18:56:41,510 - my_logger - INFO - Write output to file out.npz
