@@ -1,4 +1,6 @@
-labVec*.npz
+*.npz
 slurm*.out
 .ipynb_checkpoints
 *.log
+__pycache__
+
