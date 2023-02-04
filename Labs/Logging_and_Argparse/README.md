@@ -21,3 +21,5 @@ Example is provided in submit.sh. Format of input arguments can be shown by comm
 For test functions, with pytest package installed, command 'pytest -s -v' is recommended to see all screen outputs.
 
 Running test functions will automatically create large vector files for you.
+
+Logging information is recorded in my_log.log.
