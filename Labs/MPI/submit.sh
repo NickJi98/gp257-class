@@ -5,8 +5,7 @@
 #SBATCH --partition=preempt
 #SBATCH --exclusive
 #SBATCH --nodes=4
-#SBATCH -o t_mpi_dgmm_job.%N.%j.out  # STDOUT
-#SBATCH -e t_mpi_dgmm_job.%N.%j.err  # STDERR
+#SBATCH -o N40960_M64_F64.out
 #SBATCH --threads-per-core=1
 #SBATCH --time=00:30:00
 
@@ -19,13 +18,15 @@
 
 ##*****************************************##
 ## size of N for N*N matrix
-MATSIZE=2048
+MATSIZE=40960
+DTYPE='float64'
 
 
 ##*****************************************##
 ## Header Info
 echo;
 echo "Starting sbatch script";
+echo "Job ID: $SLURM_JOB_ID";
 echo "DATE: $(date), NTASKS: $SLURM_NTASKS, NNODES: $SLURM_NNODES";
 echo;
 
@@ -50,10 +51,10 @@ python --version 2>&1;
 MY_MPI_MATMUL="matmul_mpi.py"
 echo;
 echo "Running MatMul";
+echo "DATE: $(date)";
 echo;
-echo "mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE";
-mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE;
-echo;
+echo "mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE --dtype $DTYPE";
+mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE --dtype $DTYPE;
 
 
 ##*****************************************##
