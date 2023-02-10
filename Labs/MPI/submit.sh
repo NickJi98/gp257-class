@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #SBATCH --ntasks=64
 #SBATCH --ntasks-per-node=16
 #SBATCH --partition=preempt
@@ -46,7 +47,7 @@ python --version 2>&1;
 
 ##*****************************************##
 ## MPI
-MY_MPI_MATMUL="<your_python_mpi4py_matmul_code>.py"
+MY_MPI_MATMUL="matmul_mpi.py"
 echo;
 echo "Running MatMul";
 echo;

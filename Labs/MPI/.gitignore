@@ -1,2 +1,4 @@
+*.npz
 slurm*.out
 .ipynb_checkpoints
+
