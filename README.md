@@ -16,7 +16,7 @@ For next steps take a look at https://docs.google.com/document/d/11OSGW70sHIHiHM
 
 - [x] [Slurm](http://zapad.stanford.edu/GP257/labs-2023/slurm/-/blob/main/notebook.ipynb)
 
-- [ ] [Multicore Parallelization of Matrix Multiplication Using Numba](http://zapad.stanford.edu/GP257/labs-2023/multicore-parallelization-of-matrix-multiplication-using-numba/-/blob/main/Multicore_Parallelization_of_Matrix_Multiplication_Using_Numba.ipynb)
+- [x] [Multicore Parallelization of Matrix Multiplication Using Numba](http://zapad.stanford.edu/GP257/labs-2023/multicore-parallelization-of-matrix-multiplication-using-numba/-/blob/main/Multicore_Parallelization_of_Matrix_Multiplication_Using_Numba.ipynb)
 
 - [ ] [Python MPI (mpi4py)](http://zapad.stanford.edu/GP257/labs-2023/mpi4py_lab/-/blob/main/Python_MPI_Matrix_Matrix_Multiplication.ipynb)
 
