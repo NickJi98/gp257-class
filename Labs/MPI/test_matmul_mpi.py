@@ -2,28 +2,10 @@
 
 from mpi4py import MPI
 import numpy as np
-import argparse
-
-
-def create_parser():
-    ''' Create parser for inputs '''
-
-    parser = argparse.ArgumentParser(description='MPI Matrix Multiplication')
-    parser.add_argument('N', type=int,
-                        help='Size of square matrices')
-    parser.add_argument('--dtype', type=str, default='float64',
-                        choices=['float64', 'float32'],
-                        help='Float data type')
-    return parser
-
 
 # Read matrix size and data type
-parser = create_parser()
-args = parser.parse_args()
-dtype_dict = {'float32': np.float32, 'float64': np.float64}
-
-N = args.N
-dtype = dtype_dict[args.dtype]
+N = 32
+dtype = np.float64
 
 # MPI init
 comm = MPI.COMM_WORLD
@@ -71,11 +53,23 @@ col_comm.Bcast(col_block, root=0)
 # Block matrix multiplication
 my_block = np.dot(row_block, col_block)
 
-# Gather data
+# Gather result matrix C
 res_mat_row = row_comm.gather(my_block, root=0)
 res_mat = col_comm.gather(res_mat_row, root=0)
 
+# Gather matrices A and B
+A_mat = col_comm.gather(row_block, root=0)
+B_mat = row_comm.gather(col_block, root=0)
+
+# Test with np.dot()
 if my_rank == 0:
     res_mat = np.block(np.block(res_mat))
+    A_mat = np.vstack(A_mat)
+    B_mat = np.hstack(B_mat)
+
+    np_mat = np.dot(A_mat, B_mat)
+    err = np.sum(res_mat - np_mat)
+    print(res_mat)
+    assert err == 0, 'Result not correct: Element error is %s' % err
 
 MPI.Finalize()
