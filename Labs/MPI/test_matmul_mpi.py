@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from tkinter import NS
 from mpi4py import MPI
 import numpy as np
 
 # Read matrix size and data type
-N = 128
+N = 1024
 dtype = np.float32
 
 # MPI init
@@ -97,6 +96,7 @@ if my_rank == 0:
     np_mat = np.dot(A_mat, B_mat)
     err = np.mean(np.abs(res_mat-np_mat)/np_mat)
 
+    print('Test with matrix size N = %d' % N)
     print('Showing random 10 entries from the matrix ...\n')
     row_inds = np.random.randint(0, N, size=(10,))
     col_inds = np.random.randint(0, N, size=(10,))
