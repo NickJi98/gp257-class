@@ -71,11 +71,24 @@ col_comm.Bcast(col_block, root=0)
 # Block matrix multiplication
 my_block = np.dot(row_block, col_block)
 
-# Gather data
-res_mat_row = row_comm.gather(my_block, root=0)
-res_mat = col_comm.gather(res_mat_row, root=0)
+# Gather result matrix C
+# Gather in the row direction
+res_mat_row = None
+if my_col == 0:
+    res_mat_row = np.empty((nblock, Nsub, Nsub), dtype=dtype)
+row_comm.Gather(my_block, res_mat_row, root=0)
+
+# Gather in the column direction
+if my_rank == 0:
+    res_mat = np.empty((nblock, nblock, Nsub, Nsub), dtype=dtype)
+    res_mat[0] = res_mat_row
+    for i in range(1, nblock):
+        col_comm.Recv(res_mat[i], source=i)
+elif my_col == 0:
+    col_comm.Send(res_mat_row, dest=0)
 
 if my_rank == 0:
-    res_mat = np.block(np.block(res_mat))
+    res_mat = np.hstack(np.hstack(res_mat))
+    print('Shape of result matrix:', res_mat.shape)
 
 MPI.Finalize()
