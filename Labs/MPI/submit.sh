@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --ntasks=64
-#SBATCH --ntasks-per-node=16
+#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=4
 #SBATCH --partition=preempt
 #SBATCH --exclusive
-#SBATCH --nodes=4
-#SBATCH -o N40960_M64_F64.out
+#SBATCH --nodes=1
+#SBATCH -o test_N20480_M4_F32.out
 #SBATCH --threads-per-core=1
 #SBATCH --time=00:30:00
 
@@ -18,8 +18,8 @@
 
 ##*****************************************##
 ## size of N for N*N matrix
-MATSIZE=40960
-DTYPE='float64'
+MATSIZE=20480
+DTYPE='float32'
 
 
 ##*****************************************##
@@ -54,6 +54,7 @@ echo "Running MatMul";
 echo "DATE: $(date)";
 echo;
 echo "mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE --dtype $DTYPE";
+echo;
 mpiexec -n $SLURM_NTASKS python $MY_MPI_MATMUL $MATSIZE --dtype $DTYPE;
 
 

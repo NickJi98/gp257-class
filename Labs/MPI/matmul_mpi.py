@@ -1,8 +1,9 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 
 from mpi4py import MPI
 import numpy as np
 import argparse
+import time
 
 
 def create_parser():
@@ -30,6 +31,9 @@ comm = MPI.COMM_WORLD
 my_rank = comm.Get_rank()
 nproc = comm.Get_size()
 
+if my_rank == 0:
+    print('Start MPI', time.strftime("%H:%M:%S", time.localtime()))
+
 # Number of blocks per side
 nblock = np.sqrt(nproc)
 if np.mod(nblock, 1) != 0:
@@ -54,9 +58,12 @@ cart2d = comm.Create_cart(dims=[nblock, nblock])
 row_comm = cart2d.Sub(remain_dims=[False, True])
 col_comm = cart2d.Sub(remain_dims=[True, False])
 
+if my_rank == 0:
+    print('Finish creating communicators', time.strftime("%H:%M:%S", time.localtime()))
+
 # Create empty matrix for row and column blocks
-row_block = np.empty((Nsub, N))
-col_block = np.empty((N, Nsub))
+row_block = np.empty((Nsub, N), dtype=dtype)
+col_block = np.empty((N, Nsub), dtype=dtype)
 
 # Broadcast row-block of matrix A
 if my_col == 0:
@@ -68,8 +75,14 @@ if my_row == 0:
     col_block = np.random.rand(N, Nsub).astype(dtype)
 col_comm.Bcast(col_block, root=0)
 
+if my_rank == 0:
+    print('Finish broadcasting', time.strftime("%H:%M:%S", time.localtime()))
+
 # Block matrix multiplication
 my_block = np.dot(row_block, col_block)
+
+if my_rank == 0:
+    print('Finish block multiplication', time.strftime("%H:%M:%S", time.localtime()))
 
 # Gather result matrix C
 # Gather in the row direction
@@ -90,5 +103,6 @@ elif my_col == 0:
 if my_rank == 0:
     res_mat = np.hstack(np.hstack(res_mat))
     print('Shape of result matrix:', res_mat.shape)
+    print('Finish gathering', time.strftime("%H:%M:%S", time.localtime()))
 
 MPI.Finalize()
