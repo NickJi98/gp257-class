@@ -1,21 +1,30 @@
 
 Starting sbatch script
-Job ID: 9253
-DATE: Fri Feb 10 06:19:26 UTC 2023, NTASKS: 64, NNODES: 4
+Job ID: 10833259
+DATE: Sat Feb 25 15:31:26 PST 2023, NTASKS: 64, NNODES: 4
 
-. /home/spack/spack/share/spack/setup-env.sh
 
-spack load intel-oneapi-mpi
+module load openmpi/4.1.2
 which mpiexec
-/home/spack/spack/opt/spack/linux-centos7-skylake_avx512/gcc-8.5.0/intel-oneapi-mpi-2021.7.1-yrqwlaw7hqwlp2wolefd6dlw2sgrwfa7/mpi/2021.7.1/bin/mpiexec
-spack load python@3.10.8
+/share/software/user/open/openmpi/4.1.2/bin/mpiexec
+module load python/3.9.0
+module load py-numpy/1.20.3_py39
+module load py-mpi4py/3.1.3_py39
 python --version
-Python 3.10.8
+Python 3.9.0
 
 Running MatMul
-DATE: Fri Feb 10 06:19:32 UTC 2023
+DATE: Sat Feb 25 15:31:27 PST 2023
 
 mpiexec -n 64 python matmul_mpi.py 20480 --dtype float64
 
+Finish creating communicators 15:31:29
+Finish broadcasting 15:31:31
+Finish block multiplication 15:31:36
+Finish gathering 15:31:40
+
+Shape of result matrix: (20480, 20480)
+
 Done...
-DATE: Fri Feb 10 06:21:27 UTC 2023, NTASKS: 64, NNODES: 4
+DATE: Sat Feb 25 15:31:41 PST 2023, NTASKS: 64, NNODES: 4
+Execution time: 14 s
