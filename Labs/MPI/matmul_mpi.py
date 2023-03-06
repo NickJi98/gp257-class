@@ -31,9 +31,6 @@ comm = MPI.COMM_WORLD
 my_rank = comm.Get_rank()
 nproc = comm.Get_size()
 
-if my_rank == 0:
-    print('Start MPI', time.strftime("%H:%M:%S", time.localtime()))
-
 # Number of blocks per side
 nblock = np.sqrt(nproc)
 if np.mod(nblock, 1) != 0:
@@ -81,6 +78,10 @@ if my_rank == 0:
 # Block matrix multiplication
 my_block = np.dot(row_block, col_block)
 
+# Free out memory
+del row_block
+del col_block
+
 if my_rank == 0:
     print('Finish block multiplication', time.strftime("%H:%M:%S", time.localtime()))
 
@@ -90,6 +91,7 @@ res_mat_row = None
 if my_col == 0:
     res_mat_row = np.empty((nblock, Nsub, Nsub), dtype=dtype)
 row_comm.Gather(my_block, res_mat_row, root=0)
+del my_block
 
 # Gather in the column direction
 if my_rank == 0:
@@ -97,12 +99,16 @@ if my_rank == 0:
     res_mat[0] = res_mat_row
     for i in range(1, nblock):
         col_comm.Recv(res_mat[i], source=i)
+    del res_mat_row
+    
 elif my_col == 0:
     col_comm.Send(res_mat_row, dest=0)
+    del res_mat_row
 
 if my_rank == 0:
     res_mat = np.hstack(np.hstack(res_mat))
-    print('Shape of result matrix:', res_mat.shape)
     print('Finish gathering', time.strftime("%H:%M:%S", time.localtime()))
+    print()
+    print('Shape of result matrix:', res_mat.shape)
 
 MPI.Finalize()
