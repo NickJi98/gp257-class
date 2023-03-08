@@ -33,7 +33,7 @@ For next steps take a look at https://docs.google.com/document/d/11OSGW70sHIHiHM
 
 - [ ] [Input/Output (IO)](http://zapad.stanford.edu/GP257/labs-2023/io)
 
-- [ ] [Cloud (VM)]()
+- [ ] [Cloud (VM)](http://zapad.stanford.edu/GP257/labs-2023/vms-terraform)
 
 - [ ] [Packaging]()
 
